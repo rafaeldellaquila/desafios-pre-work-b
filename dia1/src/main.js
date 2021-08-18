@@ -9,7 +9,8 @@ function displayApp() {
     <p>Boas vindas à semana de pré-work para o Bootcamp em React.js 😁</p>
   `;
 
-  link.addEventListener("click", () => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
     div.classList.toggle("active");
   });
 }
