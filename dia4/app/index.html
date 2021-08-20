@@ -10,16 +10,29 @@
     <h1>Cadastro de Carros</h1>
     <div class="cars">
       <form class="cars-form" data-js="cars-form">
-        <label for="image">Imagem (URL)</label>
-        <input id="image" type="text" />
-        <label for="marca">Marca</label>
-        <input id="marca" type="text" />
-        <label for="ano">Ano</label>
-        <input id="ano" type="text" />
-        <label for="placa">Placa</label>
-        <input type="text" id="placa" />
-        <label for="cor">Cor</label>
-        <input type="color" id="cor" />
+        <div>
+          <label for="image">Imagem URL</label>
+          <input id="image" name="image" type="text" />
+        </div>
+
+        <div>
+          <label for="brand">Marca</label>
+          <input id="brand" name="brand" type="text" />
+        </div>
+
+        <div>
+          <label for="year">Ano</label>
+          <input id="year" name="year" type="number" />
+        </div>
+        <div>
+          <label for="plate">Placa</label>
+          <input id="plate" name="plate" type="text" />
+        </div>
+
+        <div>
+          <label for="color">Cor</label>
+          <input id="color" name="color" type="color" />
+        </div>
         <button type="submit">Enviar</button>
       </form>
       <table border="1">
