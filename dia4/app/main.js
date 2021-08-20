@@ -66,7 +66,9 @@ form.addEventListener("submit", async (e) => {
     return;
   }
   const noData = document.querySelector('[data-js="no-content"]');
-  table.removeChild(noData);
+  if (noData) {
+    table.removeChild(noData);
+  }
   createTableRow(data);
 
   e.target.reset();
@@ -75,6 +77,8 @@ form.addEventListener("submit", async (e) => {
 
 function createTableRow(data) {
   const tr = document.createElement("tr");
+  tr.dataset.plate = data.plate;
+
   const elements = [
     { type: "image", value: data.image },
     { type: "text", value: data.brandModel },
@@ -88,7 +92,42 @@ function createTableRow(data) {
     tr.appendChild(td);
   });
 
+  const button = document.createElement("button");
+  button.textContent = "Exluir";
+  button.dataset.plate = data.plate;
+  button.addEventListener("click", handleDelete);
+  tr.appendChild(button);
+
   table.appendChild(tr);
+}
+
+async function handleDelete(e) {
+  const plate = e.target.dataset.plate;
+  const tr = document.querySelector(`tr[data-plate="${plate}"]`);
+  table.removeChild(tr);
+  e.target.removeEventListener("click", handleDelete);
+
+  const result = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ plate }),
+  })
+    .then((res) => res.json())
+    .catch((error) => ({ error: true, message: error.message }));
+
+  if (result.error) {
+    console.log("erro ao deletar", result.message);
+    return;
+  }
+  const trs = table.querySelector("tr");
+  console.log(trs);
+  if (trs === null) {
+    createNoCars();
+  } else {
+    return;
+  }
 }
 
 function createNoCars() {
