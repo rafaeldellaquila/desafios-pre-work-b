@@ -9,4 +9,30 @@
 
 label {
   display: block;
+  margin-bottom: 5px;
+}
+input {
+  margin-bottom: 20px;
+}
+.cars {
+  background: #b533ff;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 30px;
+}
+button {
+  margin-bottom: 20px;
+  border: 2px solid white;
+  padding: 15px 20px;
+  background: white;
+  cursor: pointer;
+}
+table {
+  border: 2px solid white;
+}
+th {
+  padding: 5px 10px;
 }
