@@ -38,7 +38,7 @@ function createColor(value) {
   return td;
 }
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const getElement = getFormElement(e);
@@ -51,6 +51,22 @@ form.addEventListener("submit", (e) => {
     color: getElement("color").value,
   };
 
+  const result = await fetch(url, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .catch((error) => ({ error: true, message: error.message }));
+
+  if (result.error) {
+    console.log("erro no cadastro", result.message);
+    return;
+  }
+  const noData = document.querySelector('[data-js="no-content"]');
+  table.removeChild(noData);
   createTableRow(data);
 
   e.target.reset();
@@ -81,6 +97,7 @@ function createNoCars() {
   const ths = document.querySelectorAll("th").length;
   td.setAttribute("colspan", ths);
   td.textContent = "Nenhum carro encontrado";
+  tr.dataset.js = "no-data";
   tr.appendChild(td);
   table.appendChild(tr);
 }
